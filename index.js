@@ -14,9 +14,17 @@ const io = new Server(server, {
 
 // WebSocket connections
 io.on('connection', (socket) => {
-  console.log('Client connected:', socket.id);
+  // Join room if specified
+  socket.on('joinRoom', (room) => {
+    socket.join(room);
+  });
+
+  socket.on('leaveRoom', (room) => {
+    socket.leave(room);
+  });
+
   socket.on('disconnect', () => {
-    console.log('Client disconnected:', socket.id);
+    // disconnect
   });
 });
 
